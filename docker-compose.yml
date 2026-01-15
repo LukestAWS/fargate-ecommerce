@@ -1,0 +1,18 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+  # Placeholders for your other services
+  products:
+    image: alpine # temporary placeholder
+    command: echo "Products service coming soon"
+
+  cart:
+    image: alpine # temporary placeholder
+    command: echo "Cart service coming soon"

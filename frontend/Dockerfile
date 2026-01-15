@@ -1,13 +1,18 @@
-# Stage 2: Runner
-FROM node:20-alpine
+# Stage 1: Build the app
+FROM node:20-alpine AS builder
 WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-# 1. Copy the standalone build (The actual server code)
-# Notice the path now matches your folder structure: .next/standalone/frontend
-COPY --from=builder /app/.next/standalone/frontend ./
-COPY --from=builder /app/.next/standalone/node_modules ./node_modules
+# Stage 2: Runner
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
 
-# 2. Copy static files (standalone doesn't include these by default)
+# These lines only work if Stage 1 was named "builder"
+COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
