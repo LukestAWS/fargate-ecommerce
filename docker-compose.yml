@@ -7,12 +7,21 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      # This tells Next.js to look for the API inside the Docker network
+      - NEXT_PUBLIC_API_URL=http://products:8000 
+    depends_on:
+      - products
 
-  # Placeholders for your other services
   products:
-    image: alpine # temporary placeholder
-    command: echo "Products service coming soon"
+    build:
+      context: ./services/products
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"  # Local host can still see it on 8001
+    environment:
+      - PYTHONUNBUFFERED=1
 
+  # We'll leave cart as a placeholder until you're ready!
   cart:
-    image: alpine # temporary placeholder
+    image: alpine
     command: echo "Cart service coming soon"
