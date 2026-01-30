@@ -1,0 +1,17 @@
+AWS & DevOps Success
+ECR Registry: You created the fargate-ecommerce-products repository in us-east-1 to store your container images.
+
+Containerization: You built and pushed the Products Service Docker image to ECR.
+
+Task Definition: You registered fargate-ecommerce-products:1, properly configuring it with an IAM Execution Role for CloudWatch logs and 0.5 vCPU/1 GB RAM.
+
+Infrastructure Fixes: You manually created the /ecs/fargate-ecommerce-products log group to resolve a deployment "ResourceNotFound" error and successfully cleared an ECS deployment circuit breaker trip.
+
+Live Verification: You confirmed the service is working by hitting the public IP: http://52.201.251.170:8000/products.
+
+🛡️ Security & State Management
+GitHub Audit: You performed a security sweep of your LukestAWS repositories and confirmed that no sensitive .env files or secrets are publicly indexed.
+
+Cost Control: After verifying the live deployment, you scaled the desired task count back to zero to ensure your AWS spend remains at £0 while you are offline.
+
+Persistence Prep: You integrated PostgreSQL logic into your local docker-compose to replace dummy JSON data with a real database structure.

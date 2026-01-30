@@ -1,0 +1,39 @@
+{
+  "family": "fargate-ecommerce-cart",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::247523262683:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "cart-service",
+      "image": "247523262683.dkr.ecr.us-east-1.amazonaws.com/fargate-ecommerce-cart:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "STRIPE_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:247523262683:secret:fargate/stripe-keys:STRIPE_SECRET_KEY::"
+        },
+        {
+          "name": "STRIPE_PUBLISHABLE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:247523262683:secret:fargate/stripe-keys:STRIPE_PUBLISHABLE_KEY::"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/fargate-ecommerce-cart",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
