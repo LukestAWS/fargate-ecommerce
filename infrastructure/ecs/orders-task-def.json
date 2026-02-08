@@ -1,5 +1,5 @@
 {
-  "family": "fargate-ecommerce-products",
+  "family": "fargate-ecommerce-orders",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
@@ -7,8 +7,8 @@
   "executionRoleArn": "arn:aws:iam::247523262683:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "products",
-      "image": "247523262683.dkr.ecr.us-east-1.amazonaws.com/fargate-ecommerce-products:latest",
+      "name": "orders",
+      "image": "247523262683.dkr.ecr.us-east-1.amazonaws.com/fargate-ecommerce-orders:latest",
       "portMappings": [
         {
           "containerPort": 8000,
@@ -32,7 +32,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/fargate-ecommerce-products",
+          "awslogs-group": "/ecs/fargate-ecommerce-orders",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }

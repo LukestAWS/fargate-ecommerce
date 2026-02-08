@@ -1,5 +1,5 @@
 {
-  "family": "fargate-ecommerce-products",
+  "family": "fargate-ecommerce-auth",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
@@ -7,8 +7,8 @@
   "executionRoleArn": "arn:aws:iam::247523262683:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "products",
-      "image": "247523262683.dkr.ecr.us-east-1.amazonaws.com/fargate-ecommerce-products:latest",
+      "name": "auth",
+      "image": "247523262683.dkr.ecr.us-east-1.amazonaws.com/fargate-ecommerce-auth:latest",
       "portMappings": [
         {
           "containerPort": 8000,
@@ -22,21 +22,15 @@
           "value": "1"
         }
       ],
-      "secrets": [
-        {
-          "name": "DATABASE_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:247523262683:secret:fargate/database:url::"
-        }
-      ],
-      "essential": true,
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/fargate-ecommerce-products",
+          "awslogs-group": "/ecs/fargate-ecommerce-auth",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
-      }
+      },
+      "essential": true
     }
   ]
 }

@@ -59,7 +59,7 @@ export default async function Home() {
                 <div className="p-6 flex flex-col flex-grow">
                   <p className="text-zinc-600 dark:text-zinc-400 mb-6 flex-grow">{item.description}</p>
                   <div className="mb-4 text-blue-600 font-bold">
-                    Starting from £{item.price}
+                    Starting from {new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP'}).format(item.price)}
                   </div>
                   <button className="w-full bg-black text-white dark:bg-white dark:text-black py-3 rounded-lg font-medium hover:opacity-90 transition">
                     Book Service
