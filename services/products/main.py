@@ -18,6 +18,20 @@ DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@db:5432
 
 pool = None
 
+@app.post("/products", response_model=Product)
+async def create_product(product: Product):
+    if pool is None:
+        # Fallback for demo purposes if DB is down
+        DUMMY_PRODUCTS.append(product)
+        return product
+    
+    async with pool.acquire() as conn:
+        new_id = await conn.fetchval(
+            "INSERT INTO products (name, description, price) VALUES ($1, $2, $3) RETURNING id",
+            product.name, product.description, product.price
+        )
+        return {**product.dict(), "id": new_id}
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global pool

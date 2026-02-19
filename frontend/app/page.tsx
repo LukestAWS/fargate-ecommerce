@@ -10,7 +10,7 @@ interface Product {
 
 async function getProducts(): Promise<Product[]> {
   // Use localhost for local dev, and the Service Discovery name for AWS later
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+  const API_URL = process.env.NEXT_PUBLIC_PRODUCTS_API_URL || "http://localhost:8001";
   
   try {
     const res = await fetch(`${API_URL}/products`, { 
